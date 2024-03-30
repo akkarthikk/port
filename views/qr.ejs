@@ -15,17 +15,23 @@
     </form>
     <div id="qrCode"></div>
     <script>
-      async function generateQRCode() {
+      /*async function generateQRCode() {const urlInput = document.getElementById("urlInput").value;const qrCodeDiv = document.getElementById("qrCode");const response = await fetch(`/generateQRCode?url=${encodeURIComponent(urlInput)}`);const qrCodeImage = await response.blob();console.log(createObjectURL);qrCodeDiv.innerHTML = `<img src="${URL.createObjectURL(qrCodeImage)}" alt="QR Code">`;}*/
+ async function generateQRCode() {
+      try {
         const urlInput = document.getElementById("urlInput").value;
         const qrCodeDiv = document.getElementById("qrCode");
-        const response = await fetch(
-          `/generateQRCode?url=${encodeURIComponent(urlInput)}`
-        );
+        const url = "/generateQRCode?url=" + encodeURIComponent(urlInput);
+        const response = await fetch(url);
         const qrCodeImage = await response.blob();
-        qrCodeDiv.innerHTML = `<img src="${URL.createObjectURL(
-          qrCodeImage
-        )}" alt="QR Code">`;
+        const img = document.createElement('img');
+        img.src = URL.createObjectURL(qrCodeImage);
+        img.alt = "QR Code";
+        qrCodeDiv.innerHTML = "";
+        qrCodeDiv.appendChild(img);
+      } catch (error) {
+        console.error('There was a problem with the fetch operation:', error);
       }
+    }
     </script>
   </body>
 </html>
