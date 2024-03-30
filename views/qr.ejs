@@ -43,22 +43,28 @@
     </div></div><br> 
     <script>
       /*async function generateQRCode() {const urlInput = document.getElementById("urlInput").value;const qrCodeDiv = document.getElementById("qrCode");const response = await fetch(`/generateQRCode?url=${encodeURIComponent(urlInput)}`);const qrCodeImage = await response.blob();console.log(createObjectURL);qrCodeDiv.innerHTML = `<img src="${URL.createObjectURL(qrCodeImage)}" alt="QR Code">`;}*/
-      async function generateQRCode() {
-        try {
-          const urlInput = document.getElementById("urlInput").value;
-          const qrCodeDiv = document.getElementById("qrCode");
-          const url = "/generateQRCode?url=" + encodeURIComponent(urlInput);
-          const response = await fetch(url);
-          const qrCodeImage = await response.blob();
-          const img = document.createElement("img");
-          img.src = URL.createObjectURL(qrCodeImage);
-          img.alt = "QR Code";
-          qrCodeDiv.innerHTML = "";
-          qrCodeDiv.appendChild(img);
-        } catch (error) {
-          console.error("There was a problem with the fetch operation:", error);
-        }
-      }
+     async function generateQRCode() {
+    try {
+        const urlInput = document.getElementById("urlInput").value;
+        const qrCodeDiv = document.getElementById("qrCode");
+        const url = "/generateQRCode?url=" + encodeURIComponent(urlInput);
+        const response = await fetch(url);
+        const qrCodeImage = await response.blob();
+        const img = document.createElement("img");
+        img.src = URL.createObjectURL(qrCodeImage);
+        img.alt = "QR Code";
+        qrCodeDiv.innerHTML = "";
+        qrCodeDiv.appendChild(img);
+    } catch (error) {
+        console.error("There was a problem with the fetch operation:", error);
+    }
+}
+document.getElementById("urlInput").addEventListener("keypress", function(event) {
+  if (event.key === "Enter") {
+    event.preventDefault(); 
+    generateQRCode();
+  }
+});
     </script>
   </body>
 </html>
