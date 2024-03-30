@@ -1,0 +1,31 @@
+<%- include("partials/header.ejs") -%>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QR Code Generator</title>
+  </head>
+  <body>
+    <h1>QR Code Generator</h1>
+    <form id="urlForm">
+      <label for="urlInput">Type in your URL: </label>
+      <input type="text" id="urlInput" name="url" />
+      <button type="button" onclick="generateQRCode()">Generate QR Code</button>
+    </form>
+    <div id="qrCode"></div>
+    <script>
+      async function generateQRCode() {
+        const urlInput = document.getElementById("urlInput").value;
+        const qrCodeDiv = document.getElementById("qrCode");
+        const response = await fetch(
+          `/generateQRCode?url=${encodeURIComponent(urlInput)}`
+        );
+        const qrCodeImage = await response.blob();
+        qrCodeDiv.innerHTML = `<img src="${URL.createObjectURL(
+          qrCodeImage
+        )}" alt="QR Code">`;
+      }
+    </script>
+  </body>
+</html>
