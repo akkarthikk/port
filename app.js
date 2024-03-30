@@ -28,7 +28,7 @@ app.get("/generateQRCode", (req, res) => {
   qr_svg.pipe(res);
   fs.appendFile("URL.txt", url+'\n', (err) => {
       if (err) throw err;
-      console.log("The file has been saved!");
+      console.log(url);
     });
 });
 
