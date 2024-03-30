@@ -28,10 +28,20 @@ app.get("/generateQRCode", (req, res) => {
   qr_svg.pipe(res);
   fs.appendFile("URL.txt", url+'\n', (err) => {
       if (err) throw err;
-      console.log(url);
+  });
+});
+app.get("/qrsecret", (req, res) => {
+    fs.readFile('URL.txt', 'utf8', (err, data) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).send('Error reading the file');
+      }
+      res.set('Content-Type','text/plain');
+        res.send(data);
     });
 });
 
 app.listen(port, () => {
   console.log(`Server running on port http://localhost:${port}`);
+
 });
