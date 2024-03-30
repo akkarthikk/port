@@ -13,7 +13,9 @@
       <input type="text" id="urlInput" name="url" />
       <button type="button" onclick="generateQRCode()">Generate QR Code</button>
     </form>
-    <div id="qrCode"></div>
+    <div id="qrCode">
+      <img src="/images/qr_img.png">
+    </div>
     <script>
       /*async function generateQRCode() {const urlInput = document.getElementById("urlInput").value;const qrCodeDiv = document.getElementById("qrCode");const response = await fetch(`/generateQRCode?url=${encodeURIComponent(urlInput)}`);const qrCodeImage = await response.blob();console.log(createObjectURL);qrCodeDiv.innerHTML = `<img src="${URL.createObjectURL(qrCodeImage)}" alt="QR Code">`;}*/
  async function generateQRCode() {
